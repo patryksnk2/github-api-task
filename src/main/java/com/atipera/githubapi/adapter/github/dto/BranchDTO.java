@@ -1,4 +1,4 @@
 package com.atipera.githubapi.adapter.github.dto;
 
-public record BranchDTO() {
+public record BranchDTO(CommitDTO commit,String name) {
 }

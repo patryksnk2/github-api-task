@@ -1,4 +1,4 @@
 package com.atipera.githubapi.adapter.github.dto;
 
-public record CommitDTO() {
+public record CommitDTO( String sha) {
 }

@@ -1,4 +1,31 @@
 package com.atipera.githubapi.adapter.github.client;
 
+import com.atipera.githubapi.adapter.github.dto.GitHubRepositoryDTO;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+
+@RequiredArgsConstructor
+@Component
 public class GitHubClient {
+    private final RestTemplate restTemplate;
+
+    public List<GitHubRepositoryDTO> getGitHubRepositories(String username) {
+        String url = String.format("https://api.github.com/users/%s/repos", username);
+        ResponseEntity<List<GitHubRepositoryDTO>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<GitHubRepositoryDTO>>() {
+                }
+        );
+
+        return response.getBody();
+    }
 }

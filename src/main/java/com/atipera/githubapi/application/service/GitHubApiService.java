@@ -15,17 +15,13 @@ import java.util.List;
 public class GitHubApiService {
     private final GitHubClient client;
 
-    public List<GitHubRepositoryDTO> getGitHubRepositories(@NonNull String username) {
+    private List<GitHubRepositoryDTO> getGitHubRepositories(@NonNull String username) {
         return client.getGitHubRepositories(username).stream().filter(repo -> !repo.fork()).toList();
-    }
-    public List<BranchDTO> getBranchesForRepo(@NonNull String repoUrl){
-        return client.getBranchesForRepo(repoUrl);
     }
 
     public List<RepositoryResponseDTO> getRepositoriesWithBranches(String username) {
-        return client.getGitHubRepositories(username).stream()
-                .filter(repo -> !repo.fork())
-                .map(repo -> new RepositoryResponseDTO(
+        return getGitHubRepositories(username)
+                .stream().map(repo -> new RepositoryResponseDTO(
                         repo.name(),
                         repo.owner().login(),
                         client.getBranchesForRepo(repo.branchesUrl().replace("{/branch}", ""))

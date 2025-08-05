@@ -2,7 +2,6 @@ package com.atipera.githubapi.adapter.github.client;
 
 import com.atipera.githubapi.adapter.github.dto.BranchDTO;
 import com.atipera.githubapi.adapter.github.dto.GitHubRepositoryDTO;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -26,8 +25,7 @@ public class GitHubClient {
     }
 
     public List<BranchDTO> getBranchesForRepo(String repoUrl) {
-        String url = repoUrl + "/branches";
-        ResponseEntity<List<BranchDTO>> response = exchangeRequest(url, new ParameterizedTypeReference<List<BranchDTO>>() {
+        ResponseEntity<List<BranchDTO>> response = exchangeRequest(repoUrl, new ParameterizedTypeReference<List<BranchDTO>>() {
         });
         return response.getBody();
     }

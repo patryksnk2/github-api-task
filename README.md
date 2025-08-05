@@ -98,30 +98,6 @@ Aby uruchomić testy, użyj polecenia:
 ./gradlew test
 ```
 
-## Struktura projektu
-
-```
-src
-├── main
-│   ├── java
-│   │   ├── com
-│   │   │   ├── atipera
-│   │   │   │   ├── githubapi
-│   │   │   │   │   ├── controller
-│   │   │   │   │   ├── dto
-│   │   │   │   │   ├── service
-│   │   │   │   │   ├── client
-│   │   │   │   │   └── GitHubApiApplication.java
-├── test
-│   ├── java
-│   │   ├── com
-│   │   │   ├── atipera
-│   │   │   │   ├── githubapi
-│   │   │   │   │   ├── GitHubControllerIntegrationTest.java
-│   │   │   │   │   ├── service
-│   │   │   │   │   └── client
-└── build.gradle
-```
 
 - **controller**: Zawiera kontroler obsługujący endpoint `/api/repos/{username}`.
 - **dto**: Zawiera obiekt Data Transfer Object (DTO) używany do mapowania danych z GitHub.

@@ -1,5 +1,6 @@
 package com.atipera.githubapi.adapter.github.client;
 
+import com.atipera.githubapi.adapter.github.dto.BranchDTO;
 import com.atipera.githubapi.adapter.github.dto.GitHubRepositoryDTO;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +19,25 @@ public class GitHubClient {
 
     public List<GitHubRepositoryDTO> getGitHubRepositories(String username) {
         String url = String.format("https://api.github.com/users/%s/repos", username);
-        ResponseEntity<List<GitHubRepositoryDTO>> response = restTemplate.exchange(
+        ResponseEntity<List<GitHubRepositoryDTO>> response = exchangeRequest(url, new ParameterizedTypeReference<List<GitHubRepositoryDTO>>() {
+        });
+
+        return response.getBody();
+    }
+
+    public List<BranchDTO> getBranchesForRepo(String repoUrl) {
+        String url = repoUrl + "/branches";
+        ResponseEntity<List<BranchDTO>> response = exchangeRequest(url, new ParameterizedTypeReference<List<BranchDTO>>() {
+        });
+        return response.getBody();
+    }
+
+    private <T> ResponseEntity<T> exchangeRequest(String url, ParameterizedTypeReference<T> typeReference) {
+        return restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<GitHubRepositoryDTO>>() {
-                }
+                typeReference
         );
-
-        return response.getBody();
     }
 }
